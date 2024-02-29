@@ -1,0 +1,44 @@
+/* #region gradient skins */
+    .gradient{
+        --text: rgb(222, 225, 246);
+        --background: rgb(7, 8, 24);
+        --primary: rgb(137, 141, 221);
+        --secondary: rgb(103, 38, 134);
+        --accent: rgb(207, 88, 205);
+    }
+    .gradient1{
+        --text: rgb(254, 235, 225);
+        --background: rgb(20, 7, 1);
+        --primary: rgb(249, 156, 114);
+        --secondary: rgb(30, 153, 7);
+        --accent: rgb(20, 245, 108);
+    }
+    .gradient2{
+        --text: rgb(232, 236, 236);
+        --background: rgb(7, 10, 10);
+        --primary: rgb(157, 202, 202);
+        --secondary: rgb(51, 120, 120);
+        --accent: rgb(81, 199, 198);
+    }
+    .gradient3{
+        --text: rgb(232, 243, 234);
+        --background: rgb(10, 20, 12);
+        --primary: rgb(161, 207, 168);
+        --secondary: rgb(56, 67, 110);
+        --accent: rgb(144, 112, 182);
+    }
+    .gradient4{
+        --text: rgb(238, 252, 215);
+        --background: rgb(11, 19, 1);
+        --primary: rgb(193, 246, 120);
+        --secondary: rgb(11, 64, 151);
+        --accent: rgb(125, 40, 240);
+    }
+    .gradient5{
+        --text: rgb(218, 249, 235);
+        --background: rgb(4, 25, 15);
+        --primary: rgb(130, 236, 182);
+        --secondary: rgb(141, 21, 140);
+        --accent: rgb(228, 76, 89);
+    }
+/* #endregion */
