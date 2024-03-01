@@ -1,3 +1,127 @@
 .main{
-    
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100vw;
+    margin-left: 10px;
 }
+.toggleButton{
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+/* #region header */
+    .header{
+        padding: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .contents{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .toggle{
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    }
+    .levels{
+        color: white;
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .buttons{
+        color: white;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        font-weight: bold;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+    }
+    .buttons:hover{
+        opacity: 1;
+    }
+    /* #region profile */
+        .profile{
+            width: 20vw;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+        .profileImg{
+            height: 15%;
+            width: 15%;
+            border-radius: 30px;
+            border: 1px solid white;
+        }
+        .profileName{
+            display: flex;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 5px;
+        }
+        .showSet{
+            font-size: 14px;
+            transition: rotate 0.3s ease;
+        }
+        .showSet:hover{
+            rotate: 180deg;
+        }
+    /* #endregion */
+/* #endregion */
+/* #region sideBar */
+    .toggleHeader{
+        display: none;
+        flex-direction: column;
+        gap: 30px;
+        position: fixed;
+        height: 100%;
+        text-align: left;
+        border-right: 1px solid white;
+        width: 8vw;
+        padding: 10px;
+        background-color: black;
+    }
+    .route{
+        color: white;
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+        font-weight: bold;
+        font-size: 16px;
+        opacity: 0.4;
+    }
+    .route:hover{
+        opacity: 1;
+    }
+    .buttonSide{
+        display: flex;
+        color: white;
+        font-weight: bold;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 3vw;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+        cursor: pointer;
+    }
+    .buttonSide:hover{
+        opacity: 1;
+    }
+/* #endregion */

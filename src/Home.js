@@ -1,8 +1,9 @@
 import React from "react";
+import style from "../src/styles/home.module.css";
 
 function Home() {
     return(
-        <div>
+        <div className={`${style.main}`}>
             
         </div>
     )
