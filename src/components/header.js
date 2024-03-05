@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "../styles/header.module.css";
 import { Link } from "react-router-dom";
 import { FaAlignLeft } from "react-icons/fa";
@@ -8,6 +8,15 @@ import Login from "./login";
 import ReactModal from "react-modal";
 
 function Header(){
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
     return(
         <div className={`${style.main}`}>
             <div className={`${style.header}`}>
@@ -24,7 +33,7 @@ function Header(){
                 <div className={`${style.contents}`}>
                     <div className={`${style.profile}`}>
                         <img className={`${style.profileImg}`} src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/1200px-SpongeBob_SquarePants_character.svg.png"></img>
-                        <div className={`${style.profileName}`}>
+                        <div className={`${style.profileName}`} onClick={openModal}>
                             Nabadziba
                             <FaAngleDown className={`${style.showSet}`} />
                         </div>
@@ -39,9 +48,9 @@ function Header(){
                 <Link className={`${style.route}`} to="/">Home</Link>
                 <Link className={`${style.route}`} to="/skins">Skins</Link>
                 <Link className={`${style.route}`} to="/shop">Shop</Link>
-                <Link className={`${style.route}`} to="/leaderboard">Leader Board</Link>
+                <Link className={`${style.route}`} to="/leaderboard">LeaderBoard</Link>
             </div>
-            <ReactModal>
+            <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={closeModal}>
                 <Login />
             </ReactModal>
         </div>
