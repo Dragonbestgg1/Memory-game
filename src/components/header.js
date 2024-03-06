@@ -9,6 +9,7 @@ import ReactModal from "react-modal";
 
 function Header(){
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -17,10 +18,15 @@ function Header(){
     const closeModal = () => {
         setModalIsOpen(false);
     };
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
     return(
         <div className={`${style.main}`}>
             <div className={`${style.header}`}>
-                <div className={`${style.toggle}`}>
+                <div className={`${style.toggle}`} onClick={toggleMenu}>
                     <div className={`${style.buttons}`}>
                         <FaAlignLeft className={`${style.toggleButton}`} />
                         Menu
@@ -40,16 +46,14 @@ function Header(){
                     </div>
                 </div>
             </div>
-            <div className={`${style.toggleHeader}`}>
-                <div className={`${style.buttonSide}`}>
-                    <FaAlignLeft className={`${style.toggleButton}`} />
-                    Menu
+            {menuOpen && (
+                <div className={`${style.toggleHeader}`}>
+                    <Link className={`${style.route}`} to="/">Home</Link>
+                    <Link className={`${style.route}`} to="/skins">Skins</Link>
+                    <Link className={`${style.route}`} to="/shop">Shop</Link>
+                    <Link className={`${style.route}`} to="/leaderboard">LeaderBoard</Link>
                 </div>
-                <Link className={`${style.route}`} to="/">Home</Link>
-                <Link className={`${style.route}`} to="/skins">Skins</Link>
-                <Link className={`${style.route}`} to="/shop">Shop</Link>
-                <Link className={`${style.route}`} to="/leaderboard">LeaderBoard</Link>
-            </div>
+            )}
             <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={closeModal}>
                 <Login />
             </ReactModal>

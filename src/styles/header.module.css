@@ -4,7 +4,6 @@
     align-items: flex-start;
     justify-content: flex-start;
     width: 100vw;
-    margin-left: 10px;
 }
 .toggleButton{
     color: white;
@@ -57,7 +56,8 @@
             flex-direction: row;
             gap: 20px;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
+            margin-right: 40px;
         }
         .profileImg{
             height: 15%;
@@ -86,9 +86,9 @@
         .modal{
             position: absolute;
             width: 40vw;
-            height: 45vh;
+            height: 50vh;
             right: 450px;
-            bottom: 230px;
+            bottom: 200px;
             padding: 0;
             border-radius: 15px;
             overflow: hidden;
@@ -97,16 +97,18 @@
 /* #endregion */
 /* #region sideBar */
     .toggleHeader{
-        display: none;
+        display: flex;
         flex-direction: column;
         gap: 30px;
         position: fixed;
         height: 100%;
         text-align: left;
         border-right: 1px solid white;
+        border-top: 1px solid white;
         width: 8vw;
         padding: 10px;
         background-color: black;
+        margin-top: 70px;
     }
     .route{
         color: white;
@@ -117,21 +119,6 @@
         opacity: 0.4;
     }
     .route:hover{
-        opacity: 1;
-    }
-    .buttonSide{
-        display: flex;
-        color: white;
-        font-weight: bold;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        width: 3vw;
-        opacity: 0.6;
-        transition: opacity 0.3s ease;
-        cursor: pointer;
-    }
-    .buttonSide:hover{
         opacity: 1;
     }
 /* #endregion */
