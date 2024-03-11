@@ -5,17 +5,32 @@
     height: 100%;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 40px;
 }
 .title{
-
+    display: block;
 }
 .titleName{
-
+    color: white;
 }
 .suggest{
-
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 70vw;
 }
 .suggestionName{
-
+    color: white;
+}
+.suggestBox{
+    border: 1px solid white;
+    color: white;
+    width: 30vw;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
 }

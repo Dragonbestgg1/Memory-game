@@ -46,14 +46,14 @@ function Header(){
                     </div>
                 </div>
             </div>
-            {menuOpen && (
-                <div className={`${style.toggleHeader}`}>
-                    <Link className={`${style.route}`} to="/">Home</Link>
-                    <Link className={`${style.route}`} to="/skins">Skins</Link>
-                    <Link className={`${style.route}`} to="/shop">Shop</Link>
-                    <Link className={`${style.route}`} to="/leaderboard">LeaderBoard</Link>
-                </div>
-            )}
+                {menuOpen && (
+                    <div className={`${style.toggleHeader} ${menuOpen ? style.open : ''}`}>
+                        <Link className={`${style.route}`} to="/">Home</Link>
+                        <Link className={`${style.route}`} to="/skins">Skins</Link>
+                        <Link className={`${style.route}`} to="/shop">Shop</Link>
+                        <Link className={`${style.route}`} to="/leaderboard">Leaderboard</Link>
+                    </div>
+                )}
             <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={closeModal}>
                 <Login />
             </ReactModal>
