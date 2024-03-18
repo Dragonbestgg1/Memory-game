@@ -1,0 +1,57 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    margin-top: 60px;
+    padding: 40px;
+}
+.h1{
+    color: white;
+    cursor: default;
+}
+.skinContainers{
+    display: flex;
+    flex-direction: row;
+    width: 70vw;
+    height: 60vh;
+    flex-wrap: wrap;
+    gap: 80px;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    padding: 20px;
+}
+.container{
+    display: flex;
+    height: 30vh;
+    width: 20vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid white;
+}
+.background{
+    width: 10vw;
+    height: 20vh;
+    border: 1px solid white;
+}
+.price{
+    width: 10vw;
+    font-size: 14px;
+    display: flex;
+    flex-direction: row;
+    color: white;
+    gap: 10px;
+}
+.buy{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

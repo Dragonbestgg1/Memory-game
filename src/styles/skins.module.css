@@ -17,11 +17,29 @@
     .skinContainers{
         display: flex;
         flex-direction: row;
-        width: 70vw;
+        width: 85vw;
+        height: 65vh;
         flex-wrap: wrap;
         gap: 80px;
         justify-content: flex-start;
         align-items: center;
+        overflow-y: scroll;
+    }
+    .container{
+        display: flex;
+        height: 30vh;
+        width: 20vh;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        border: 1px solid white;
+    }
+    .background{
+        width: 10vw;
+        height: 20vh;
+        border: 1px solid white;
     }
 /* #endregion */
 /* #region skins */
@@ -67,6 +85,20 @@
             --primary: rgb(130, 236, 182);
             --secondary: rgb(141, 21, 140);
             --accent: rgb(228, 76, 89);
+        }
+        .gradient6{
+            --text: rgb(228, 238, 255);
+            --background: rgb(0, 12, 32);
+            --primary: rgb(111, 159, 255);
+            --secondary: rgb(94, 0, 167);
+            --accent: rgb(226, 23, 254);
+        }
+        .gradient7{
+            --text: rgb(228, 235, 232);
+            --background: rgb(12, 16, 14);
+            --primary: rgb(180, 201, 191);
+            --secondary: rgb(93, 67, 70);
+            --accent: rgb(158, 161, 123);
         }
     /* #endregion */
 /* #endregion */

@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .App-logo {
@@ -28,7 +28,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+/* *{
+  outline: 3px solid red;
+} */
 .App-link {
   color: #61dafb;
 }
@@ -40,4 +42,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
 }

@@ -26,9 +26,9 @@ function Header(){
     return(
         <div className={`${style.main}`}>
             <div className={`${style.header}`}>
-                <div className={`${style.toggle}`} onClick={toggleMenu}>
-                    <div className={`${style.buttons}`}>
-                        <FaAlignLeft className={`${style.toggleButton}`} />
+                <div className={`${style.toggle}`}>
+                    <div className={`${style.buttons}`} onClick={toggleMenu}>
+                        <FaAlignLeft className={`${style.toggleButton}`}/>
                         Menu
                     </div>
                     <Link className={`${style.buttons}`} to="/levels">
@@ -52,6 +52,7 @@ function Header(){
                         <Link className={`${style.route}`} to="/skins">Skins</Link>
                         <Link className={`${style.route}`} to="/shop">Shop</Link>
                         <Link className={`${style.route}`} to="/leaderboard">Leaderboard</Link>
+                        <Link className={`${style.route}`} to="/achievements">Achievements</Link>
                     </div>
                 )}
             <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={closeModal}>

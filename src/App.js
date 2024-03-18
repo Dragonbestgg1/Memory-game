@@ -6,6 +6,7 @@ import LeaderBoard from './leaderboard';
 import Shop from './shop';
 import Skins from './skins';
 import Levels from './levels';
+import Achievements from './achievements';
 import { AuthProvider } from '../src/AuthContext'; 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path='/shop' element={<Shop />} />
             <Route path='/skins' element={<Skins />} />
             <Route path='/levels' element={<Levels />} />
+            <Route path='/achievements' element={<Achievements />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
