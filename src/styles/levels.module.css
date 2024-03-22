@@ -1,0 +1,121 @@
+/* #region levels */
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 40px;
+}
+.levelsH1{
+    color: white;
+}
+.levelsDisplay{
+    display: flex;
+    flex-direction: row;
+    width: 75vw;
+    height: 65vh;
+    flex-wrap: wrap;
+    gap: 80px;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: scroll;
+    color: white;
+}
+.level{
+    width: 10vw;
+    height: 10vh;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* #endregion */
+/* #region game */
+.mainGame{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px;
+}
+.gameH1{
+    color: white;
+}
+.gameContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 30vw;
+    gap: 5px;
+}
+.card{
+    width: 7vw;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    font-size: 30px;
+}
+
+.card > div {
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.flipped > div {
+    opacity: 1;
+}
+.modal{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    margin-left: 400px;
+    margin-top: 200px;
+}
+.modalButton{
+    background: none;
+    border: 1px solid white;
+    color: white;
+    border-radius: 15px;
+    padding: 5px;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+.modalButton:hover{
+    opacity: 1;
+}
+.modalButtonAlign{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 20vw;
+    height: 10vh;
+}
+/* #endregion */
