@@ -8,7 +8,11 @@ import Skins from './skins';
 import Levels from './levels';
 import Game from './levels/game';
 import Achievements from './achievements';
-import { AuthProvider } from '../src/AuthContext'; 
+import { AuthProvider } from '../src/AuthContext';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://localhost:8000/api';
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

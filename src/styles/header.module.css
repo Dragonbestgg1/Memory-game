@@ -87,9 +87,9 @@
         .modal{
             position: absolute;
             width: 40vw;
-            height: 50vh;
+            height: 60vh;
             right: 450px;
-            bottom: 200px;
+            bottom: 170px;
             padding: 0;
             border-radius: 15px;
             overflow: hidden;

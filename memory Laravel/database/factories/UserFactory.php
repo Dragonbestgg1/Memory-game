@@ -2,43 +2,30 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+    protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'username' => $this->faker->userName,
+            'password' => Hash::make('password'), // default password is 'password'
+            'email' => $this->faker->unique()->safeEmail,
+            'profile_img' => $this->faker->imageUrl(), // generates a random image url
+            'completed_achievements' => json_encode($this->faker->words(3)), // generates an array of 3 random words
+            'unlocked_styles' => json_encode($this->faker->words(3)),
+            'cleared_levels' => json_encode($this->faker->randomDigit), // generates a random digit
+            'personal_best_times' => json_encode($this->faker->randomDigit),
+            'unlocked_skins' => json_encode($this->faker->words(3)),
+            'points' => $this->faker->randomNumber(),
+            'unlocked_secret' => $this->faker->boolean,
+            'unlocked_secret_style' => $this->faker->boolean,
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

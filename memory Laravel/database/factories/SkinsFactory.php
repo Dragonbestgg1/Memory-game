@@ -2,22 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\Skins;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\skins>
- */
 class SkinsFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Skins::class;
+
+    public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'images' => json_encode($this->faker->words(3)), // generates an array of 3 random words
         ];
     }
 }
