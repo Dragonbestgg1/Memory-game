@@ -19,14 +19,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// To create a user
 Route::post('/users', [UserController::class, 'store']);
 
-// To retrieve a user
 Route::get('/users/{id}', [UserController::class, 'show']);
 
-// To update a user
+Route::post('/login', [UserController::class, 'login']);
+
 Route::put('/users/{id}', [UserController::class, 'update']);
 
 Route::post('/skins', 'SkinsController@store');
+
 Route::get('/skins/{id}', 'SkinsController@show');

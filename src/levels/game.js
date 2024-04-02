@@ -158,27 +158,21 @@ function Game() {
         }
     }, [state.flipped]);
 
-    // Check if the game should advance to the next stage or end
     useEffect(() => {
         if (hasStarted && state.numSolved === state.cards.length && cardsGenerated) {
+            console.log('pirms if', state.numSolved)
+            console.log('pirms if', state.cards.length)
             setTimeout(() => {
-                if (stageRef.current <= 20) {
+                if (stageRef.current <= totalStages) {
                     dispatch({ type: 'ADVANCE_STAGE' });
+                    console.log('pec advance', state.numSolved)
+                    console.log('pec advance', state.cards.length)
                 } else {
                     dispatch({ type: 'END_GAME' });
                 }
             }, 1000); // Delay of 10 seconds
         }
     }, [state.numSolved, state.cards.length, state.stage, cardsGenerated]);
-    
-    // Handle game status changes
-    useEffect(() => {
-        if (state.gameStatus === 'nextStage') {
-            dispatch({ type: 'ADVANCE_STAGE' });
-        } else if (state.gameStatus === 'endGame') {
-            setIsModalOpen(true);
-        }
-    }, [state.gameStatus]);
 
     return (
         <div className={style.mainGame}>

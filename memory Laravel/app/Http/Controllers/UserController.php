@@ -43,11 +43,30 @@ class UserController extends Controller
             if ($request->has('email')) {
                 $user->email = $request->input('email');
             }
-            // add other fields here...
             $user->save();
             return response()->json($user);
         } else {
             return response()->json(['message' => 'User not found'], 404);
         }
+    }    
+    public function login(Request $request)
+    {
+        $field = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $user = User::where($field, $request->input('login'))->first();
+    
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Invalid password'], 401);
+        }
+    
+        // Here you should generate a token for the user and send it as a response
+        // This token will be used for authentication in subsequent requests
+    
+        return response()->json($user);
     }
+    
+
 }

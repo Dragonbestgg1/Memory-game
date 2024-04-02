@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import style from "../styles/login.module.css";
+import Cookies from 'js-cookie';
 
-function Login() {
+function Login({ closeModal, onLoginSuccess }) {
     const [isRegister, setIsRegister] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -10,17 +11,42 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const registerUrl = "/users";
+        const loginUrl = "/login";
+        const registerData = { username, password, email };
+        const loginData = { login: email, password };
+
         try {
-            const response = await axios.post("/users", {
-                username,
-                password,
-                email
-            });
-            console.log(response.data);
+            let userData;
+            if (isRegister) {
+                // Register the user
+                const registerResponse = await axios.post(registerUrl, registerData);
+                console.log(registerResponse.data);
+
+                // Log the user in
+                const loginResponse = await axios.post(loginUrl, loginData);
+                console.log(loginResponse.data);
+                userData = loginResponse.data;
+            } else {
+                // Log the user in
+                const response = await axios.post(loginUrl, loginData);
+                console.log(response.data);
+                userData = response.data;
+            }
+
+            // Store received data in a cookie
+            Cookies.set('userData', JSON.stringify(userData));
+
+            // Call the onLoginSuccess function with the user data
+            onLoginSuccess(userData);
         } catch (error) {
             console.error(error);
         }
+
+        // Close the modal
+        closeModal(false);
     };
+       
 
     return (
         <div className={`${style.main}`}>
