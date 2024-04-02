@@ -13,21 +13,6 @@ function Header() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [showOptions, setShowOptions] = useState(false);
-
-    const handleLogout = () => {
-        // Handle logout
-        Cookies.remove('userData');
-        setUser(null);
-        setShowOptions(false);
-    };
-
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
     const [user, setUser] = useState(null);
 
     // Load the user data from the cookie when the component mounts
@@ -46,6 +31,21 @@ function Header() {
         setMenuOpen(!menuOpen);
     };
 
+    const handleLogout = () => {
+        // Handle logout
+        Cookies.remove('userData');
+        setUser(null);
+        setShowOptions(false);
+    };
+
+    const handleProfileClick = () => {
+        if (user) {
+            setShowOptions(!showOptions);
+        } else {
+            setModalIsOpen(true);
+        }
+    };
+
     return (
         <div className={`${style.main}`}>
             <div className={`${style.header}`}>
@@ -60,21 +60,21 @@ function Header() {
                     </Link>
                 </div>
                 <div className={`${style.contents}`}>
-                    <div className={`${style.profile}`}>
+                    <div className={`${style.profile}`} onClick={handleProfileClick}>
                         {user && user.profile_img ? (
                             <img className={`${style.profileImg}`} src={user.profile_img} alt="User profile" />
                         ) : (
                             <CgProfile className={`${style.profileImg}`} color="white" />
                         )}
-                        <div className={`${style.profileName}`} onClick={openModal}>
+                        <div className={`${style.profileName}`}>
                             {user ? user.username : "Login"}
                             <FaAngleDown className={`${style.showSet}`} />
                         </div>
                     </div>
                     {showOptions && (
-                        <div className={`${style.options}`} style={{ position: 'absolute' }}>
-                            <Link className={`${style.buttons}`} to="/settings" />
-                            <button onClick={handleLogout}>Logout</button>
+                        <div className={`${style.options}`}>
+                            <Link className={`${style.profileBut}`} to="/settings">Settings</Link>
+                            <button className={`${style.profileBut}`} onClick={handleLogout}>Logout</button>
                         </div>
                     )}
                 </div>
@@ -87,12 +87,12 @@ function Header() {
                         <Link className={`${style.route}`} to="/achievements">Achievements</Link>
                     </div>
                 )}
-                <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={closeModal}>
+                <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
                     <Login closeModal={setModalIsOpen} onLoginSuccess={onLoginSuccess} />
                 </ReactModal>
             </div>
         </div>
-    )
+    );
 }
 
 export default Header;

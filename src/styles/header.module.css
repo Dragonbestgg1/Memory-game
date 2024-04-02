@@ -94,6 +94,31 @@
             border-radius: 15px;
             overflow: hidden;
         }
+        .options{
+            display: flex;
+            position: absolute;
+            flex-direction: column;
+            right: 55px;
+            top: 55px;
+            gap: 5px;
+        }
+        .profileBut{
+            color: white;
+            background: none;
+            border: none;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-weight: bold;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+        .profileBut:hover{
+            opacity: 1;
+        }
     /* #endregion */
 /* #endregion */
 /* #region sideBar */
