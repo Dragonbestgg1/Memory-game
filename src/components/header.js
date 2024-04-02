@@ -45,6 +45,17 @@ function Header() {
             setModalIsOpen(true);
         }
     };
+    useEffect(() => {
+        const selectedStyle = JSON.parse(localStorage.getItem('selectedStyle'));
+        if (selectedStyle) {
+            const toggleHeaderElements = document.getElementsByClassName('toggleHeader');
+            for (let i = 0; i < toggleHeaderElements.length; i++) {
+                toggleHeaderElements[i].style.background = `linear-gradient(${selectedStyle.primary}, ${selectedStyle.secondary})`;
+                toggleHeaderElements[i].style.backgroundSize = 'cover';
+                toggleHeaderElements[i].style.backgroundRepeat = 'no-repeat';
+            }
+        }
+    });
 
     return (
         <div className={`${style.main}`}>
@@ -82,9 +93,9 @@ function Header() {
                     <div className={`${style.toggleHeader} ${menuOpen ? style.open : ''}`}>
                         <Link className={`${style.route}`} to="/">Home</Link>
                         <Link className={`${style.route}`} to="/skins">Skins</Link>
-                        <Link className={`${style.route}`} to="/shop">Shop</Link>
+                        {/* <Link className={`${style.route}`} to="/shop">Shop</Link> */}
                         <Link className={`${style.route}`} to="/leaderboard">Leaderboard</Link>
-                        <Link className={`${style.route}`} to="/achievements">Achievements</Link>
+                        {/* <Link className={`${style.route}`} to="/achievements">Achievements</Link> */}
                     </div>
                 )}
                 <ReactModal className={`${style.modal}`} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>

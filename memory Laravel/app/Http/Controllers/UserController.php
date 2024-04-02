@@ -14,12 +14,29 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->email = $request->email;
-        // add other fields here...
+    
+        // Set default values for time and unlocked_styles
+        $user->personal_best_times = json_encode(array_fill(0, 20, 0));
+        $user->unlocked_styles = json_encode(array_fill(0, 15, 0));
+    
         $user->save();
-
+    
         return response()->json(['message' => 'User created successfully'], 201);
     }
-
+    
+    public function leaderboard()
+    {
+        // Get all users and their personal_best_times
+        $users = User::all('username', 'personal_best_times');
+    
+        // Sort the users by their personal_best_times in ascending order
+        $sortedUsers = $users->sortBy(function ($user) {
+            return min(json_decode($user->personal_best_times));
+        });
+    
+        return response()->json($sortedUsers->values()->all());
+    }
+    
     public function show(string $id)
     {
         $user = User::find($id);
@@ -43,12 +60,19 @@ class UserController extends Controller
             if ($request->has('email')) {
                 $user->email = $request->input('email');
             }
+            if ($request->has('personal_best_times')) { // Check if the request has 'personal_best_times'
+                $user->personal_best_times = $request->input('personal_best_times'); // Update 'personal_best_times'
+            }
+            if ($request->has('unlocked_styles')) {
+                $user->unlocked_styles = $request->input('unlocked_styles');
+            }
             $user->save();
             return response()->json($user);
         } else {
             return response()->json(['message' => 'User not found'], 404);
         }
-    }    
+    }
+    
     public function login(Request $request)
     {
         $field = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';

@@ -95,3 +95,7 @@
     cursor: pointer;
     margin-top: 4px;
 }
+.err{
+    position: absolute;
+    top: 340px;
+}

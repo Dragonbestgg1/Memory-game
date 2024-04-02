@@ -7,7 +7,9 @@ function Login({ closeModal, onLoginSuccess }) {
     const [isRegister, setIsRegister] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState(""); // Add this line
     const [email, setEmail] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,6 +17,11 @@ function Login({ closeModal, onLoginSuccess }) {
         const loginUrl = "/login";
         const registerData = { username, password, email };
         const loginData = { login: email, password };
+
+        if (isRegister && password !== confirmPassword) { // Add this block
+            setErrorMessage("Passwords must match.");
+            return;
+        }
 
         try {
             let userData;
@@ -41,12 +48,12 @@ function Login({ closeModal, onLoginSuccess }) {
             onLoginSuccess(userData);
         } catch (error) {
             console.error(error);
+            setErrorMessage("Failed to log in. Please check your password.");
         }
 
         // Close the modal
         closeModal(false);
     };
-       
 
     return (
         <div className={`${style.main}`}>
@@ -57,9 +64,10 @@ function Login({ closeModal, onLoginSuccess }) {
                     <input type="text" className={`${style.input}`} placeholder={isRegister ? "Email" : "Username or email"} value={email} onChange={(e) => setEmail(e.target.value)}></input>
                     <input type="password" className={`${style.input}`} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                     {!isRegister && <h1 className={`${style.forgot}`}>Forgot Password?</h1>}
-                    {isRegister && <input type="password" className={`${style.input}`} placeholder="Confirm Password"></input>}
+                    {isRegister && <input type="password" className={`${style.input}`} placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>} {/* Modify this line */}
                 </div>
                 <button type="submit" className={`${style.submitBut}`}>{isRegister ? "Register" : "Login"}</button>
+                {errorMessage && <p className={`${style.err}`}>{errorMessage}</p>}
                 <div className={`${style.signUpBox}`}>
                     {!isRegister ? "Don't have an account?" : "Already have an account?"}
                     <button type="button" className={`${style.signUpButton}`} onClick={() => setIsRegister(!isRegister)}>

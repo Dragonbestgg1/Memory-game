@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "../styles/skins.module.css";
 import GradientContainer from "./GradientContainer";
+import Cookies from 'js-cookie';
 
 const gradients = [
     { primary: 'rgb(137, 141, 221)', secondary: 'rgb(103, 38, 134)', accent: 'rgb(207, 88, 205)' },
@@ -21,16 +22,71 @@ const gradients = [
 ];
 
 function Skins(){
+    const [unlockedStyles, setUnlockedStyles] = useState([]);
+    const [selectedStyle, setSelectedStyle] = useState(JSON.parse(localStorage.getItem('selectedStyle')) || null);
+
+    useEffect(() => {
+        const userData = Cookies.get('userData');
+        if (userData) {
+            const parsedData = JSON.parse(userData);
+            const unlockedStylesArray = JSON.parse(parsedData.unlocked_styles);
+            setUnlockedStyles(unlockedStylesArray);
+        }
+    }, []);
+
+    useEffect(() => {
+        const toggleHeaderElements = document.getElementsByClassName('toggleHeader');
+        if (selectedStyle) {
+            document.body.style.background = `linear-gradient(${selectedStyle.primary}, ${selectedStyle.secondary})`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.height = '100vh';
+            for (let i = 0; i < toggleHeaderElements.length; i++) {
+                toggleHeaderElements[i].style.background = `linear-gradient(${selectedStyle.primary}, ${selectedStyle.secondary})`;
+                toggleHeaderElements[i].style.backgroundSize = 'cover';
+                toggleHeaderElements[i].style.backgroundRepeat = 'no-repeat';
+            }
+        } else {
+            document.body.style.background = '';
+            for (let i = 0; i < toggleHeaderElements.length; i++) {
+                toggleHeaderElements[i].style.background = '';
+            }
+        }
+    }, [selectedStyle]);
+    
+
+    const handleStyleClick = (index, gradient) => {
+        if (unlockedStyles[index] !== 0) {
+            setSelectedStyle(gradient);
+            localStorage.setItem('selectedStyle', JSON.stringify(gradient));
+        }
+    };
+
+    const handleResetClick = () => {
+        setSelectedStyle(null);
+        localStorage.removeItem('selectedStyle');
+    };
+
     return(
         <div className={`${style.main}`}>
             <div className={`${style.title}`}>
                 <h1 className={`${style.h1}`}>Skins</h1>
+                <button className={`${style.reset}`} onClick={handleResetClick}>Reset to Default</button>
             </div>
             <div className={`${style.skinContainers}`}>
                 {gradients.map((gradient, index) => (
-                    <div style={{border: `1px solid ${gradient.accent}`}} key={index} className={`${style.container}`}>
+                    <div 
+                        style={{
+                            border: `1px solid ${gradient.accent}`,
+                            opacity: unlockedStyles[index] === 0 ? 0.5 : 1,
+                            cursor: unlockedStyles[index] === 0 ? 'default' : 'pointer'
+                        }} 
+                        key={index} 
+                        className={`${style.container}`}
+                        onClick={() => handleStyleClick(index, gradient)}
+                    >
                         <GradientContainer className={`${style.background}`} primaryColor={gradient.primary} secondaryColor={gradient.secondary}>
-                            {/* gradient display */}    
+                             
                         </GradientContainer>
                         <h1 className={`${style.h1}`}>
                             Style <span style={{color: gradient.accent}}>{index + 1}</span>

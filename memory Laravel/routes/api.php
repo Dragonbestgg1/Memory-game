@@ -23,10 +23,9 @@ Route::post('/users', [UserController::class, 'store']);
 
 Route::get('/users/{id}', [UserController::class, 'show']);
 
+Route::get('/users', [UserController::class, 'leaderboard']);
+
 Route::post('/login', [UserController::class, 'login']);
 
 Route::put('/users/{id}', [UserController::class, 'update']);
 
-Route::post('/skins', 'SkinsController@store');
-
-Route::get('/skins/{id}', 'SkinsController@show');

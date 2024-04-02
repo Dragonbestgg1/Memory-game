@@ -40,6 +40,13 @@
         height: 20vh;
         border: 1px solid white;
     }
+    .reset{
+        background: none;
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
 /* #endregion */
 /* #region skins */
     /*#region gradient skins */

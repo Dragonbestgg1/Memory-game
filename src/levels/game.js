@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useReducer } from "react";
 import style from "../styles/levels.module.css"
 import { useLocation, useNavigate } from "react-router-dom";
 import Modal from 'react-modal';
+import Cookies from 'js-cookie';
+import axios from "axios";
 
 const initialState = {
     stage: 0,
@@ -76,6 +78,13 @@ function reducer(state, action) {
             throw new Error();
     }
 }
+function formatTime(milliseconds) {
+    const totalSeconds = Math.floor(milliseconds / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
 
 function Game() {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -87,7 +96,11 @@ function Game() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const stageRef = useRef(state.stage);
     const [cardsGenerated, setCardsGenerated] = useState(false);
-    let i = 0;
+    const [startTime, setStartTime] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(0);
+    const intervalIdRef = useRef(null);
+    const userData = Cookies.get('userData');
+    const userId = JSON.parse(userData).id; 
 
     useEffect(() => {
         stageRef.current = state.stage;
@@ -128,6 +141,7 @@ function Game() {
         const timeoutId = setTimeout(() => {
             dispatch({ type: 'SET_FLIPPED', payload: [] });
             setHasStarted(true);
+            setStartTime(Date.now());
         }, 3000);
 
         return () => clearTimeout(timeoutId);
@@ -138,7 +152,16 @@ function Game() {
         }
         dispatch({ type: 'SET_FLIPPED', payload: [...state.flipped, index] });
     }
-    
+
+    useEffect(() => {
+        if (hasStarted && !isModalOpen) {
+            const intervalId = setInterval(() => {
+                setElapsedTime(Date.now() - startTime);
+            }, 1000);
+            return () => clearInterval(intervalId);
+        }
+    }, [hasStarted, isModalOpen, startTime]);
+
 
     // Handle card flipping
     useEffect(() => {
@@ -160,20 +183,59 @@ function Game() {
 
     useEffect(() => {
         if (hasStarted && state.numSolved === state.cards.length && cardsGenerated) {
-            console.log('pirms if', state.numSolved)
-            console.log('pirms if', state.cards.length)
             setTimeout(() => {
                 if (stageRef.current <= totalStages) {
                     dispatch({ type: 'ADVANCE_STAGE' });
-                    console.log('pec advance', state.numSolved)
-                    console.log('pec advance', state.cards.length)
                 } else {
                     dispatch({ type: 'END_GAME' });
+                    setIsModalOpen(true)
                 }
             }, 1000); // Delay of 10 seconds
         }
     }, [state.numSolved, state.cards.length, state.stage, cardsGenerated]);
 
+    useEffect(() => {
+        if (state.gameStatus === 'endGame') {
+            clearInterval(intervalIdRef.current);
+        }
+    }, [state.gameStatus]);
+
+    useEffect(() => {
+        if (state.gameStatus === 'endGame') {
+            clearInterval(intervalIdRef.current);
+    
+            // Adjust the level to match the array index
+            const adjustedLevel = level - 1;
+    
+            // Get the user's current personal best time for this level from the database
+            axios.get(`/users/${userId}`).then(response => {
+                const user = response.data;
+                const currentBestTime = JSON.parse(user.personal_best_times)[adjustedLevel];
+    
+                // Only update the time if it's a new personal best or if the current best time is 0
+                if (elapsedTime < currentBestTime || currentBestTime === 0) {
+                    const updatedTimes = [...JSON.parse(user.personal_best_times)];
+                    updatedTimes[adjustedLevel] = elapsedTime;
+    
+                    // update the database with the new times
+                    axios.put(`/users/${userId}`, {
+                        personal_best_times: JSON.stringify(updatedTimes)
+                    });
+    
+                    // update the cookie with the new times
+                    const userData = Cookies.get('userData');
+                    const parsedData = JSON.parse(userData);
+                    parsedData.personal_best_times = JSON.stringify(updatedTimes);
+                    Cookies.set('userData', JSON.stringify(parsedData));
+                }
+            });
+    
+            setIsModalOpen(true);
+        }
+    }, [state.gameStatus]);
+    
+    
+    
     return (
         <div className={style.mainGame}>
             <h1 className={style.gameH1}>Level {parseInt(level)}</h1>
@@ -203,6 +265,9 @@ function Game() {
                     {level < 20 ? (
                         <>
                             <p>You've completed Level {level}!</p>
+                            <p>
+                                Your time {formatTime(elapsedTime)}!
+                            </p>
                             <div className={`${style.modalButtonAlign}`}>
                                 <button className={`${style.modalButton}`} onClick={() => { navigate(`/`); setIsModalOpen(false); }}>Go to Home Page</button>
                                 <button className={`${style.modalButton}`} onClick={() => { navigate(`/levels/game?level=${parseInt(level) + 1}`); setIsModalOpen(false); }}>Go to Level {parseInt(level) + 1}</button>
