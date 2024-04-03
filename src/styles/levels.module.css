@@ -119,3 +119,48 @@
     height: 10vh;
 }
 /* #endregion */
+
+@media only screen and (max-width: 900px){
+    .main{
+        padding: 0px;
+        padding-top: 50px;
+    }
+    .title{
+        font-size: 16px;
+        width: 40vw;
+        word-break: normal;
+    }
+    .level{
+        width: 30vw;
+        height: 30vh;
+    }
+    .levelsDisplay{
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 20px;
+    }
+    .mainGame{
+        padding: 0px;
+        padding-top: 40px;
+    }
+    .card{
+        width: 20vw;
+    }
+    .gameContainer{
+        width: 90vw;
+    }
+    .modal{
+        margin-left: 50px;
+        background: none;
+        width: 70vw;
+    }
+    .modalButtonAlign{
+        gap: 40px;
+    }
+    .modalButton{
+        padding: 10px;
+        font-size: 10px;
+    }
+}

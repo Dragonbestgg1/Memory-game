@@ -228,6 +228,23 @@ function Game() {
                     parsedData.personal_best_times = JSON.stringify(updatedTimes);
                     Cookies.set('userData', JSON.stringify(parsedData));
                 }
+    
+                // If the level is 3 and the game is completed, update unlocked_styles
+                if (level === '3') {
+                    const unlocked_styles = JSON.parse(user.unlocked_styles);
+                    unlocked_styles[1] = 1;
+    
+                    // update the database with the new unlocked_styles
+                    axios.put(`/users/${userId}`, {
+                        unlocked_styles: JSON.stringify(unlocked_styles)
+                    });
+    
+                    // update the cookie with the new unlocked_styles
+                    const userData = Cookies.get('userData');
+                    const parsedData = JSON.parse(userData);
+                    parsedData.unlocked_styles = JSON.stringify(unlocked_styles);
+                    Cookies.set('userData', JSON.stringify(parsedData));
+                }
             });
     
             setIsModalOpen(true);

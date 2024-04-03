@@ -56,7 +56,7 @@ function Header() {
             }
         }
     });
-
+    
     return (
         <div className={`${style.main}`}>
             <div className={`${style.header}`}>
@@ -105,5 +105,5 @@ function Header() {
         </div>
     );
 }
-
 export default Header;
+    
