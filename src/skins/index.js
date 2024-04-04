@@ -24,7 +24,10 @@ const gradients = [
 function Skins(){
 
     const [unlockedStyles, setUnlockedStyles] = useState([]);
-    const [selectedStyle, setSelectedStyle] = useState(JSON.parse(localStorage.getItem('selectedStyle')) || null);
+    const selectedStyleCookie = Cookies.get('selectedStyle');
+    const [selectedStyle, setSelectedStyle] = useState(selectedStyleCookie ? JSON.parse(selectedStyleCookie) : null);
+
+
 
     useEffect(() => {
         const userData = Cookies.get('userData');
@@ -57,16 +60,18 @@ function Skins(){
     
 
     const handleStyleClick = (index, gradient) => {
-        if (unlockedStyles[index] !== 0) {
+        const userData = Cookies.get('userData');
+        if (userData && unlockedStyles[index] !== 0) {
             setSelectedStyle(gradient);
-            localStorage.setItem('selectedStyle', JSON.stringify(gradient));
+            Cookies.set('selectedStyle', JSON.stringify(gradient), { expires: 7 }); // The cookie will expire after 7 days
         }
     };
-
+    
     const handleResetClick = () => {
         setSelectedStyle(null);
-        localStorage.removeItem('selectedStyle');
+        Cookies.remove('selectedStyle');
     };
+    
 
     return(
         <div className={`${style.main}`}>

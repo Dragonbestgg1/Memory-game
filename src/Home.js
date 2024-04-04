@@ -19,7 +19,6 @@ function Home() {
         }
     }, []);
 
-
     return (
         <div className={`${style.main}`}>
             <div className={`${style.title}`}>
@@ -32,7 +31,11 @@ function Home() {
                     <div className={`${style.suggestBox}`}>
                         <h1 className={`${style.suggestionName}`}>Next level on your list</h1>
                         <div className={`${style.levelNext}`}>
-                            <Link className={`${style.nextLevel}`} to={`/levels/game?level=${nextLevel}`}>Level {nextLevel}</Link>
+                            {nextLevel > 20 ? (
+                                <p>You have completed the game</p>
+                            ) : (
+                                <Link className={`${style.nextLevel}`} to={`/levels/game?level=${nextLevel}`}>Level {nextLevel}</Link>
+                            )}
                         </div>
                     </div>
                 )}

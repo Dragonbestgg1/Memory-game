@@ -8,12 +8,17 @@ import Login from "./login";
 import ReactModal from "react-modal";
 import Cookies from 'js-cookie';
 import { CgProfile } from "react-icons/cg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Header() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [showOptions, setShowOptions] = useState(false);
     const [user, setUser] = useState(null);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const isGameRoute = location.pathname.includes('game');
 
     // Load the user data from the cookie when the component mounts
     useEffect(() => {
@@ -28,7 +33,11 @@ function Header() {
     };
 
     const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
+        if (isGameRoute) {
+            navigate('/');
+        } else {
+            setMenuOpen(!menuOpen);
+        }
     };
 
     const handleLogout = () => {
@@ -63,7 +72,7 @@ function Header() {
                 <div className={`${style.toggle}`}>
                     <div className={`${style.buttons}`} onClick={toggleMenu}>
                         <FaAlignLeft className={`${style.toggleButton}`} />
-                        Menu
+                        {isGameRoute ? 'Home' : 'Menu'}
                     </div>
                     {user && (
                         <Link className={`${style.buttons}`} to="/levels">
