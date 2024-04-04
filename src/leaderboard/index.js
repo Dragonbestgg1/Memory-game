@@ -9,27 +9,29 @@ function formatTime(milliseconds) {
     return minutes > 0 ? `${minutes} minutes ${seconds.toFixed(2)} seconds` : `${seconds.toFixed(2)} seconds`;
 }
 
-
-
 function LeaderBoard() {
     const [leaderboardData, setLeaderboardData] = useState([]);
 
     useEffect(() => {
         axios.get('/users') // Replace with your actual API endpoint
             .then(response => {
-                setLeaderboardData(response.data);
+                const sortedData = response.data
+                    .map(user => ({ ...user, timeInSeconds: JSON.parse(user.personal_best_times)[0] / 1000 }))
+                    .filter(user => user.timeInSeconds >= 0.1)
+                    .sort((a, b) => a.timeInSeconds - b.timeInSeconds);
+                setLeaderboardData(sortedData);
             })
             .catch(error => {
                 console.error('Error fetching leaderboard data:', error);
             });
     }, []);
 
+
     return (
         <div className={`${style.main}`}>
             <h1 className={`${style.LeaderBoard}`}>LeaderBoard</h1>
             <div className={`${style.leaderList}`}>
                 {leaderboardData.map((user, index) => {
-                    const timeInSeconds = JSON.parse(user.personal_best_times)[0] / 1000; // Get the first value and convert to seconds
                     let className = `${style.leaderRest}`;
                     if (index === 0) className = `${style.leader1}`;
                     else if (index === 1) className = `${style.leader2}`;
@@ -37,10 +39,11 @@ function LeaderBoard() {
 
                     return (
                         <h1 key={index} className={className}>
-                            {index + 1}. {user.username} - {formatTime(timeInSeconds * 1000)}
+                            {index + 1}. {user.username} - {formatTime(user.timeInSeconds * 1000)}
                         </h1>
                     );
                 })}
+
             </div>
         </div>
     )
