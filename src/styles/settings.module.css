@@ -1,0 +1,49 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 40px;
+}
+.usernameContainer{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    width: 30vw;
+}
+.input{
+    width: 100%;
+    background-color: white;
+    padding: 5px;
+}
+.img{
+    width: 100%;
+    background-color: white;
+    padding: 5px;
+}
+.submit{
+    width: 10vw;
+    padding: 5px;
+    background: none;
+    color: white;
+    border: none;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+.submit:hover{
+    opacity: 1;
+}
+.message{
+    position: absolute;
+    color: white;
+    top: 340px;
+    cursor: default;
+}

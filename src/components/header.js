@@ -43,6 +43,7 @@ function Header() {
     const handleLogout = () => {
         // Handle logout
         Cookies.remove('userData');
+        Cookies.remove('selectedStyle');
         setUser(null);
         setShowOptions(false);
     };

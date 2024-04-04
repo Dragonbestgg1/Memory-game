@@ -7,6 +7,7 @@ import Shop from './shop';
 import Skins from './skins';
 import Levels from './levels';
 import Game from './levels/game';
+import Settings from './settings';
 import Achievements from './achievements';
 import { AuthProvider } from '../src/AuthContext';
 import axios from 'axios';
@@ -22,6 +23,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/settings' element={<Settings />} />
             <Route path='/leaderboard' element={<LeaderBoard />} />
             <Route path='/shop' element={<Shop />} />
             <Route path='/skins' element={<Skins />} />

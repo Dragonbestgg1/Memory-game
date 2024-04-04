@@ -60,6 +60,10 @@ class UserController extends Controller
             if ($request->has('email')) {
                 $user->email = $request->input('email');
             }
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('images', 'public');
+                $user->image_path = $path;
+            }            
             if ($request->has('personal_best_times')) { // Check if the request has 'personal_best_times'
                 $user->personal_best_times = $request->input('personal_best_times'); // Update 'personal_best_times'
             }
