@@ -78,8 +78,8 @@ function Skins(){
                     <div 
                         style={{
                             border: `1px solid ${gradient.accent}`,
-                            opacity: unlockedStyles[index] === 0 ? 0.5 : 1,
-                            cursor: unlockedStyles[index] === 0 ? 'default' : 'pointer'
+                            opacity: unlockedStyles[index] === 1 ? 1 : 0.5,
+                            cursor: unlockedStyles[index] === 1 ? 'pointer' : 'default'
                         }} 
                         key={index} 
                         className={`${style.container}`}

@@ -6,37 +6,45 @@ import { Link } from "react-router-dom";
 
 function Home() {
     const [nextLevel, setNextLevel] = useState(0);
+    const [user, setUser] = useState(null); // Define 'user' here
 
     useEffect(() => {
         const userData = Cookies.get('userData');
         if (userData) {
             const parsedData = JSON.parse(userData);
+            setUser(parsedData); // Set 'user' here
             const personalBestTimes = JSON.parse(parsedData.personal_best_times);
             const lastCompletedLevel = findLastIndex(personalBestTimes, time => time > 0);
             setNextLevel(lastCompletedLevel + 2); // +2 because array is 0-indexed and we want the next level
         }
     }, []);
-    
 
-    return(
+
+    return (
         <div className={`${style.main}`}>
             <div className={`${style.title}`}>
-                 <h1 className={`${style.titleName}`}>Welcome back</h1>{/*if logged in - welcome back, if first time log in - hello, else - Welcome to Casual Memory Game */}
+                {user && (
+                    <h1 className={`${style.titleName}`}>Welcome back</h1>
+                )}
             </div>
             <div className={`${style.suggest}`}>
-                <div className={`${style.suggestBox}`}>
-                    <h1 className={`${style.suggestionName}`}>Next level on your list</h1>
-                    <div className={`${style.levelNext}`}>
-                        <Link className={`${style.nextLevel}`} to={`/levels/game?level=${nextLevel}`}>Level {nextLevel}</Link>
+                {user && (
+                    <div className={`${style.suggestBox}`}>
+                        <h1 className={`${style.suggestionName}`}>Next level on your list</h1>
+                        <div className={`${style.levelNext}`}>
+                            <Link className={`${style.nextLevel}`} to={`/levels/game?level=${nextLevel}`}>Level {nextLevel}</Link>
+                        </div>
                     </div>
-                </div>
-                <div className={`${style.suggestBox}`}>
-                    <h1 className={`${style.suggestionName}`}>Daily challenge</h1>
-                    <div className={`${style.levelDaily}`}>
-
+                )}
+                {user && (
+                    <div className={`${style.suggestBox}`}>
+                        <h1 className={`${style.suggestionName}`}>Daily challenge</h1>
+                        <div className={`${style.levelDaily}`}>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
+
         </div>
     )
 }

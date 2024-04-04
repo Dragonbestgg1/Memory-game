@@ -56,7 +56,7 @@ function Header() {
             }
         }
     });
-    
+
     return (
         <div className={`${style.main}`}>
             <div className={`${style.header}`}>
@@ -65,10 +65,12 @@ function Header() {
                         <FaAlignLeft className={`${style.toggleButton}`} />
                         Menu
                     </div>
-                    <Link className={`${style.buttons}`} to="/levels">
-                        <FaIndent className={`${style.levels}`} />
-                        Levels
-                    </Link>
+                    {user && (
+                        <Link className={`${style.buttons}`} to="/levels">
+                            <FaIndent className={`${style.levels}`} />
+                            Levels
+                        </Link>
+                    )}
                 </div>
                 <div className={`${style.contents}`}>
                     <div className={`${style.profile}`} onClick={handleProfileClick}>
@@ -106,4 +108,3 @@ function Header() {
     );
 }
 export default Header;
-    

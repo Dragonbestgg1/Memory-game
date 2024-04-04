@@ -13,47 +13,61 @@ function Login({ closeModal, onLoginSuccess }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+    
+        // Check if all fields are filled
+        if (isRegister && (!username || !email || !password || !confirmPassword)) {
+            setErrorMessage("All fields must be filled.");
+            return;
+        } else if (!isRegister && (!email || !password)) {
+            setErrorMessage("Email and password must be filled.");
+            return;
+        } else {
+            setErrorMessage("");
+        }
+    
+        // Check if email is valid
+        const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+        if (isRegister && !emailRegex.test(email)) {
+            setErrorMessage("Please enter a valid email.");
+            return;
+        }
+    
+        // Check if passwords match
+        if (isRegister && password !== confirmPassword) {
+            setErrorMessage("Passwords must match.");
+            return;
+        }
+    
         const registerUrl = "/users";
         const loginUrl = "/login";
         const registerData = { username, password, email };
         const loginData = { login: email, password };
-
-        if (isRegister && password !== confirmPassword) { // Add this block
-            setErrorMessage("Passwords must match.");
-            return;
-        }
-
+    
         try {
             let userData;
             if (isRegister) {
-                // Register the user
                 const registerResponse = await axios.post(registerUrl, registerData);
                 console.log(registerResponse.data);
-
-                // Log the user in
+        
                 const loginResponse = await axios.post(loginUrl, loginData);
                 console.log(loginResponse.data);
                 userData = loginResponse.data;
             } else {
-                // Log the user in
                 const response = await axios.post(loginUrl, loginData);
                 console.log(response.data);
                 userData = response.data;
             }
-
-            // Store received data in a cookie
+        
             Cookies.set('userData', JSON.stringify(userData));
-
-            // Call the onLoginSuccess function with the user data
             onLoginSuccess(userData);
+            closeModal(false); // Close the modal only when login is successful
         } catch (error) {
             console.error(error);
             setErrorMessage("Failed to log in. Please check your password.");
+            // Don't close the modal here
         }
-
-        // Close the modal
-        closeModal(false);
     };
+    
 
     return (
         <div className={`${style.main}`}>
