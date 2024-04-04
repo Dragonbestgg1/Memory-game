@@ -134,7 +134,7 @@ function Game() {
             faces.push(...faces);
         }
         let cardFaces = faces.slice(0, numCards / 2).flatMap(face => [face, face]);
-        dispatch({ type: 'SET_CARDS', payload: cardFaces.sort(() => Math.random() - 0.5) });
+        dispatch({ type: 'SET_CARDS', payload: cardFaces.toSorted(() => Math.random() - 0.5) });
 
         dispatch({ type: 'SET_FLIPPED', payload: cardFaces.map((_, index) => index) });
 
@@ -180,19 +180,20 @@ function Game() {
             }
         }
     }, [state.flipped]);
-
+    // Decide to end or advance the stage (apparently infinite loop)
     useEffect(() => {
         if (hasStarted && state.numSolved === state.cards.length && cardsGenerated) {
             setTimeout(() => {
-                if (stageRef.current <= totalStages) {
-                    dispatch({ type: 'ADVANCE_STAGE' });
-                } else {
+                if (stageRef.current == totalStages) {
                     dispatch({ type: 'END_GAME' });
                     setIsModalOpen(true)
+                } else {
+                    dispatch({ type: 'ADVANCE_STAGE' });
                 }
-            }, 1000); // Delay of 10 seconds
+            }, 1000);
+
         }
-    }, [state.numSolved, state.cards.length, state.stage, cardsGenerated]);
+    }, [state.numSolved, state.cards.length, cardsGenerated]);
 
     useEffect(() => {
         if (state.gameStatus === 'endGame') {
