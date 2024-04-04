@@ -184,11 +184,11 @@ function Game() {
     useEffect(() => {
         if (hasStarted && state.numSolved === state.cards.length && cardsGenerated) {
             setTimeout(() => {
-                if (stageRef.current == totalStages) {
+                if (stageRef.current <= totalStages) {
+                    dispatch({ type: 'ADVANCE_STAGE' });  
+                } else {
                     dispatch({ type: 'END_GAME' });
                     setIsModalOpen(true)
-                } else {
-                    dispatch({ type: 'ADVANCE_STAGE' });
                 }
             }, 1000);
 
